@@ -2,6 +2,7 @@
   "name": "tubesmanpro",
   "version": "1.0.0",
   "description": "untuk tubes manpro",
+  "type": "module",
   "main": "index.js",
   "scripts": {
     "test": "nodemon index.js"
