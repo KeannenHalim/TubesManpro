@@ -1,6 +1,6 @@
 import express from "express";
 import path from "path";
-
+import { home } from "./home.js";
 const app = express();
 const port = 8080;
 
@@ -8,9 +8,7 @@ app.use(express.static(path.resolve("public")));
 app.set('view engine','ejs');
 
 
-app.get('/',(req,res)=>{
-    res.render('home');
-});
+app.use('/',home);
 
 app.get('/pencarian/graf',(req,res)=>{
     res.render('PencarianGraf');
