@@ -1,6 +1,9 @@
 import express from "express";
 import path from "path";
-import { home } from "./home.js";
+import { home } from "./controller/Home.js";
+import { pencarianGraf } from "./controller/PencarianGraf.js";
+import { pencarianGrafikBar } from "./controller/PencarianGrafikBar.js";
+import { pencarianNama } from "./controller/PencarianNama.js";
 const app = express();
 const port = 8080;
 
@@ -10,17 +13,12 @@ app.set('view engine','ejs');
 
 app.use('/',home);
 
-app.get('/pencarian/graf',(req,res)=>{
-    res.render('PencarianGraf');
-});
+app.use('/pencarian/graf',pencarianGraf);
 
-app.get('/pencarian/grafik',(req,res)=>{
-    res.render('PencarianGrafikBar');
-});
+app.use('/pencarian/grafik',pencarianGrafikBar);
 
-app.get('/pencarian/nama',(req,res)=>{
-    res.render('PencarianNama');
-});
+app.use('/pencarian/nama',pencarianNama);
+
 app.listen(port,()=>{
     console.log('listening');
 });
