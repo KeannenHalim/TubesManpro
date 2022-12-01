@@ -1,9 +1,9 @@
-import express from 'express';
+import express from "express";
 
 const router = express.Router();
 
-router.get('/',(req,res)=>{
-    res.render('PencarianGraf');
+router.get("/", (req, res) => {
+  res.render("PencarianGraf");
 });
 
-export {router as pencarianGraf};
+export { router as pencarianGraf };

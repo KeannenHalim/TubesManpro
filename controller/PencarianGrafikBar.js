@@ -1,9 +1,9 @@
-import express from 'express';
+import express from "express";
 
 const router = express.Router();
 
-router.get('/',(req,res)=>{
-    res.render('PencarianGrafikBar');
+router.get("/", (req, res) => {
+  res.render("PencarianGrafikBar");
 });
 
-export {router as pencarianGrafikBar};
+export { router as pencarianGrafikBar };

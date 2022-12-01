@@ -2,8 +2,8 @@ import express from "express";
 
 const router = express.Router();
 
-router.get('/',(req,res)=>{
-    res.render('home');
+router.get("/", (req, res) => {
+  res.render("home");
 });
 
-export {router as home};
+export { router as home };
