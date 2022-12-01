@@ -49,6 +49,24 @@
     justify-content: center;
 }
 
+body, html {
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+}
+
+.wallpaper{
+  background-image: url("/assets/image/got.webp");
+
+  /* Full height */
+  height: 100%; 
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
 @font-face {
     font-family: "nerko-one";
     src: url("../assets/font/NerkoOne-Regular.ttf");
