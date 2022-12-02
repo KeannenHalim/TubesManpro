@@ -1,0 +1,50 @@
+.navigation-wrapper {
+    display: flex;
+    flex-direction: row;
+    background-color: black;
+  }
+  
+  .logo {
+    display: flex;
+    justify-content: center;
+    height: 50px;
+    width: 130px;
+    margin: 15px;
+  }
+  
+  .icon {
+    height: auto;
+    width: 40px;
+  }
+  
+  .link {
+    color: #f9f9f9;
+    font-family: "nerko-one";
+    font-size: 15pt;
+    text-align: center;
+  }
+  
+  .link:hover {
+    background-color: #535252;
+    text-decoration: underline;
+    text-decoration-color: rgb(255, 255, 255);
+    text-decoration-thickness: 2px;
+  }
+  
+  .menu {
+    display: flex;
+    flex-direction: row;
+    padding: 15px;
+  }
+  
+  .underlined_menu:hover {
+    width: 250px;
+    height: 10px;
+    background-color: rgb(245, 141, 141);
+  }
+  
+  .link_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
