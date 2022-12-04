@@ -51,3 +51,8 @@
     flex-direction: column;
     justify-content: center;
   }
+
+  @font-face {
+    font-family: "nerko-one";
+    src: url("../assets/font/NerkoOne-Regular.ttf");
+  }
