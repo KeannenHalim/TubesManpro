@@ -10,7 +10,8 @@ const port = 8080;
 
 app.use(express.static(path.resolve("public")));
 app.set("view engine", "ejs");
-
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 app.use("/", home);
 

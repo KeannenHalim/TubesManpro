@@ -4,7 +4,7 @@ const pool = mysql.createPool({
   user: "root",
   password: "",
   database: "gameofthrones",
-  host: "127.0.0.1",
+  host: "localhost",
 });
 
 const dbConnect = () => {
