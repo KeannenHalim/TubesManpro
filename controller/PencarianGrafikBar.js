@@ -10,11 +10,11 @@ router.get("/", (req, res) => {
 router.post("/show", async (req, res) => {
   const queryString =
     "SELECT t1.source AS 'Name', (t1.countTarget + t2.countSource) AS 'Count' FROM ( SELECT SOURCE , COUNT(target) AS 'countTarget' FROM `interaction` WHERE book = '?' GROUP BY SOURCE ) AS t1 INNER JOIN( SELECT target, COUNT(SOURCE) AS 'countSource' FROM `interaction` WHERE book = '?' GROUP BY target ) AS t2 ON t1.source = t2.target"
-    + "UNION" 
-    + "SELECT t1.source AS 'Name', t1.countTarget AS 'Count' FROM ( SELECT SOURCE , COUNT(target) AS 'countTarget' FROM `interaction` WHERE book = '?' GROUP BY SOURCE ) AS t1 LEFT JOIN( SELECT target, COUNT(SOURCE) AS 'countSource' FROM `interaction` WHERE book = '?' GROUP BY target ) AS t2 ON t1.source = t2.target WHERE t2.target IS NULL"
-    + "UNION"
-    + "SELECT t2.target AS 'Name', t2.countSource AS 'Count' FROM ( SELECT SOURCE , COUNT(target) AS 'countTarget' FROM `interaction` WHERE book = '?' GROUP BY SOURCE ) AS t1 RIGHT JOIN( SELECT target, COUNT(SOURCE) AS 'countSource' FROM `interaction` WHERE book = '?' GROUP BY target ) AS t2 ON t1.source = t2.target WHERE t1.source IS NULL"
-    + "ORDER BY Count DESC";
+    + " UNION" 
+    + " SELECT t1.source AS 'Name', t1.countTarget AS 'Count' FROM ( SELECT SOURCE , COUNT(target) AS 'countTarget' FROM `interaction` WHERE book = '?' GROUP BY SOURCE ) AS t1 LEFT JOIN( SELECT target, COUNT(SOURCE) AS 'countSource' FROM `interaction` WHERE book = '?' GROUP BY target ) AS t2 ON t1.source = t2.target WHERE t2.target IS NULL"
+    + " UNION"
+    + " SELECT t2.target AS 'Name', t2.countSource AS 'Count' FROM ( SELECT SOURCE , COUNT(target) AS 'countTarget' FROM `interaction` WHERE book = '?' GROUP BY SOURCE ) AS t1 RIGHT JOIN( SELECT target, COUNT(SOURCE) AS 'countSource' FROM `interaction` WHERE book = '?' GROUP BY target ) AS t2 ON t1.source = t2.target WHERE t1.source IS NULL"
+    + " ORDER BY Count DESC LIMIT 10";
   const bookIn = req.body.book;
   const bookReq = [bookIn,bookIn,bookIn,bookIn,bookIn,bookIn];
  
@@ -34,7 +34,21 @@ router.post("/show", async (req, res) => {
   const result = await query(conn, queryString, bookReq);
   conn.release();
 
-  res.json(result);
+  const processedLabel = [];
+  const processedData = [];
+  let i = 0;
+  for(let data of result){
+    processedLabel[i] = data.Name;
+    processedData[i] = data.Count;
+    i++;
+  }
+
+  const obj={
+    Label : processedLabel,
+    Data : processedData
+  };
+
+  res.json(obj);
 });
 
 export { router as pencarianGrafikBar };
