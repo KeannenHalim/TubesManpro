@@ -1,0 +1,27 @@
+#dropdown-container{
+    width: 130px;
+}
+
+#input-container{
+    width: 600px;
+    margin: 20px;
+}
+.btn-group{
+    margin: 20px;
+}
+
+.group-container{
+    display: flex;
+
+}
+
+#pagination-container {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.hidden{
+    display: none;
+}
