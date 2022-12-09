@@ -6,7 +6,7 @@ html {
 }
 
 .wallpaper {
-  background-image: url("/assets/image/wallpaper.jpg");
+  background-image: url("/assets/image/wallpaper.png");
 
   /* Full height */
   height: 100%;
@@ -20,4 +20,35 @@ html {
 @font-face {
   font-family: "nerko-one";
   src: url("../assets/font/NerkoOne-Regular.ttf");
+}
+
+@font-face {
+  font-family: "cinzel";
+  src: url('../assets/font/Cinzel-Regular.otf');
+}
+
+.descriptionWrapper{
+  display: flex;
+  color: white;
+  text-align: justify;
+  font-family: 'cinzel';
+}
+
+#tampilGraf{
+  flex: 1;
+  margin: 30px;
+}
+
+#tampilGrafikBar{
+  flex: 1;
+  margin: 30px;
+}
+
+#cariNama{
+  flex: 1;
+  margin: 30px;
+}
+
+.titleDesc{
+  font-weight: bold;
 }
