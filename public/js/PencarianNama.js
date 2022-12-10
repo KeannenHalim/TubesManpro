@@ -7,7 +7,7 @@ const btnBook5 = document.querySelector("#book5");
 
 const inputContainer = document.querySelector('#input-container');
 inputContainer.classList.add('hidden');
-
+const dataContainer = document.querySelector('.data-container');
 let bookChosen = 0;
 
 const paginationContainer = document.querySelector('.pagination');
@@ -18,30 +18,35 @@ btnBook1.addEventListener("click", (e) => {
     dropdownContainer.textContent = "Book 1";
     bookChosen = 1;
     inputContainer.classList.remove('hidden');
+    inputText.value = "";
 });
 
 btnBook2.addEventListener("click", (e) => {
     dropdownContainer.textContent = "Book 2";
     bookChosen = 2;
     inputContainer.classList.remove('hidden');
+    clearData();
 });
 
 btnBook3.addEventListener("click", (e) => {
     dropdownContainer.textContent = "Book 3";
     bookChosen = 3;
     inputContainer.classList.remove('hidden');
+    clearData();
 });
 
 btnBook4.addEventListener("click", (e) => {
     dropdownContainer.textContent = "Book 4";
     bookChosen = 4;
     inputContainer.classList.remove('hidden');
+    clearData();
 });
 
 btnBook5.addEventListener("click", (e) => {
     dropdownContainer.textContent = "Book 5";
     bookChosen = 5;
     inputContainer.classList.remove('hidden');
+    clearData();
 });
 
 inputText.addEventListener("keyup", () => {
@@ -59,10 +64,11 @@ inputText.addEventListener("keyup", () => {
                 before = i.textContent-1;
                 tombolWrap[i.textContent-1].classList.add('active');
 
-                //panggil limit d sini, terus tampilin
+                getData(bookChosen, inputText.value, i.textContent-1);
             });
         }
     });
+    getData(bookChosen,inputText.value, 0);
 });
 
 function getCount(bookNumber, namaCari) {
@@ -80,6 +86,50 @@ function getCount(bookNumber, namaCari) {
         return response.json();
     }
     return jumlah;
+}
+
+function clearData(){
+    inputText.value="";
+    paginationContainer.replaceChildren();
+    dataContainer.replaceChildren();
+}
+
+function getData(bookNumber, namaCari, startIdx){
+    const obj = { book: bookNumber, name: namaCari, start: startIdx };
+    const init = {
+        method: 'post',
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(obj)
+    };
+
+    fetch('/pencarian/nama/cariNama', init).then(onSuccess).then(showResult);
+    function onSuccess(response) {
+        return response.json();
+    }
+
+    function showResult(data){
+        showData(data);
+    }
+    
+}
+
+function showData(data){
+    dataContainer.replaceChildren();
+    for(let i of data){
+        const container = document.createElement('div');
+        container.classList.add('oneDataContainer');
+        const target = document.createElement('span');
+        target.classList.add('target-container');
+        target.textContent = i.target;
+        const weight = document.createElement('span');
+        weight.classList.add('weight-container');
+        weight.textContent = i.weight;
+        container.appendChild(target);
+        container.appendChild(weight);
+        dataContainer.appendChild(container);
+    }
 }
 
 function makePagination(jumlahPage) {

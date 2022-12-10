@@ -34,14 +34,14 @@ router.post("/hitungJumlah", async (req, res) => {
 
 router.post("/cariNama", async (req, res) => {
   const queryString =
-    "SELECT target, weight FROM interaction WHERE source LIKE ? AND book = '?' ORDER BY weight DESC LIMIT '?','?'";
+    "SELECT target, weight FROM interaction WHERE source LIKE ? AND book = '?' ORDER BY weight DESC LIMIT ?,?";
     const name = "%"+req.body.name+"%";
   const book = req.body.book;
-  const start = req.body.start;
+  const start = req.body.start*10;
   const banyak = 10;
-  const query = (conn, queryString, name, book,start, banyak) => {
+  const query = (conn, queryString, [name, book,start, banyak]) => {
     return new Promise((resolve, reject) => {
-      conn.query(queryString, name, book, start,banyak,(err, result) => {
+      conn.query(queryString, [name, book, start,banyak],(err, result) => {
         if (err) {
           reject(err);
         } else {
@@ -52,7 +52,7 @@ router.post("/cariNama", async (req, res) => {
   };
 
   const conn = await db();
-  const result = await query(conn, queryString, name, book);
+  const result = await query(conn, queryString, [name, book,start,banyak]);
   conn.release();
 
   res.send(result);

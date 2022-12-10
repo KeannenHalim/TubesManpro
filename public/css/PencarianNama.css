@@ -25,3 +25,22 @@
 .hidden{
     display: none;
 }
+
+.data-container{
+    display: flex;
+    flex-direction: column;
+}
+
+.oneDataContainer{
+    display: grid;
+    grid-template-areas: 'target weight';
+    justify-content: space-between;
+}
+
+.target-container{
+    grid-area: target;
+}
+
+.weight-container{
+    grid-area: weight;
+}
