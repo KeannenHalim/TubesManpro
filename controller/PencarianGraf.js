@@ -7,10 +7,15 @@ router.get("/", (req, res) => {
   res.render("PencarianGraf");
 });
 
-router.get("/cariGraf", async (req, res) => {
-  const queryString =
+router.post("/show", async (req, res) => {
+  const queryStringLinks =
+    "SELECT source AS 'name' FROM ( SELECT source , target, weight FROM interaction WHERE book = '?' ORDER BY weight DESC LIMIT 10 ) AS sourcedata"
+    + " UNION"
+    + " SELECT target AS 'name' FROM ( SELECT source , target, weight FROM interaction WHERE book = '?' ORDER BY weight DESC LIMIT 10 ) AS targetdata"
+  const queryStringNodes =
     "SELECT source, target, weight FROM interaction WHERE book = '?' ORDER BY weight DESC LIMIT 10";
-  // const book = req.body.something;
+  const bookIn = req.body.book;
+  const bookReq = [bookIn, bookIn];
 
   const query = (conn, queryString, book) => {
     return new Promise((resolve, reject) => {
@@ -25,10 +30,16 @@ router.get("/cariGraf", async (req, res) => {
   };
 
   const conn = await db();
-  const result = await query(conn, queryString, book);
+  const nodesResult = await query(conn, queryStringLinks, bookReq);
+  const linksResult = await query(conn, queryStringNodes, bookIn);
   conn.release();
 
-  res.send(result);
+  const graph = {
+    nodes: nodesResult,
+    links: linksResult
+  }
+
+  res.json(graph);
 });
 
 export { router as pencarianGraf };
