@@ -37,16 +37,28 @@ function showChart(bookNumber){
                 datasets: [{
                     label: 'number of Interactions',
                     data: arrData,
-                    borderWidth: 1
+                    borderWidth: 1,
+                    backgroundColor: '#0d6efd',
+
                 }]
             },
             options: {
                 indexAxis: 'y',
                 scales: {
                     y: {
-                        beginAtZero: true
+                        beginAtZero: true,
+                        ticks: {color: 'black'},
+                        grid:{
+                            color: 'gray'
+                        }
+                    },
+                    x:{
+                        ticks: {color: 'black'},
+                        grid:{
+                            color: 'gray'
+                        }
                     }
-                }
+                },
             }
         });
     }

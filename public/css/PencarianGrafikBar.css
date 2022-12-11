@@ -8,6 +8,8 @@
 
 #chart-container{
     height: 75%;
+    display: flex;
+    justify-content: center;
 }
 
 body,
@@ -16,3 +18,10 @@ html {
   margin: 0;
   overflow: hidden;
 }
+ body{
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100%;
+    background-image: url(../assets/image/wallpaperLannister.png);
+ }

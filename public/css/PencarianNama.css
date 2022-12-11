@@ -26,21 +26,47 @@
     display: none;
 }
 
+@font-face {
+    font-family: "cinzel";
+    src: url('../assets/font/Cinzel-Regular.otf');
+  }
+
 .data-container{
+    margin-top: 20px;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: large;
+    font-family: 'cinzel';
 }
 
 .oneDataContainer{
     display: grid;
     grid-template-areas: 'target weight';
-    justify-content: space-between;
+    grid-template-columns: 200px 50px;
 }
 
 .target-container{
     grid-area: target;
+
 }
 
 .weight-container{
     grid-area: weight;
 }
+
+body,
+html {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
+body{
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100%;
+    background-image: url(../assets/image/wallpaperStark.png);
+ }

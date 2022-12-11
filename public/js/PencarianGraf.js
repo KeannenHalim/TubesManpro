@@ -63,7 +63,8 @@ function drawGraph(bookNumber) {
           return d.name;
         })
       )
-      .force("charge", d3.forceManyBody())
+      .force("collide", d3.forceCollide(50))
+      .force("charge", d3.forceManyBody().strength(160))
       .force("center", d3.forceCenter(width / 2, height / 2));
 
     var link = svg
@@ -74,25 +75,31 @@ function drawGraph(bookNumber) {
       .enter()
       .append("line")
       .attr("class", "link")
-      .attr("stroke-width", 5);
+      .attr("stroke-width", 8);
 
     var node = svg
       .append("g")
+      .style("fill", function(d){
+        return '#0d6efd';
+      })
       .attr("class", "nodes")
       .selectAll("g")
       .data(graph.nodes)
       .enter()
       .append("g");
 
-    var circles = node.append("circle").attr("r", 10);
+    var circles = node.append("circle").attr("r", 15);
 
     var nodelable = node
       .append("text")
+      .style("fill", function(d){
+        return '#000';
+      })
       .attr("class", "nodelable")
       .text(function (d) {
         return d.name;
       })
-      .attr("x", -5)
+      .attr("x", -6)
       .attr("y", -25);
 
     var linklable = svg
@@ -109,7 +116,7 @@ function drawGraph(bookNumber) {
       .text(function (d) {
         return d.weight;
       })
-      .attr("x", -20)
+      .attr("x", 20)
       .attr("y", -10);
 
     simulation.nodes(graph.nodes).on("tick", update);
