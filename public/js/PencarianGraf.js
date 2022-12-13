@@ -116,8 +116,8 @@ function drawGraph(bookNumber) {
       .text(function (d) {
         return d.weight;
       })
-      .attr("x", 20)
-      .attr("y", -10);
+      .attr("x", 0)
+      .attr("y", 0);
 
     simulation.nodes(graph.nodes).on("tick", update);
     simulation.force("link").links(graph.links);
@@ -142,7 +142,12 @@ function drawGraph(bookNumber) {
       });
 
       linklable.attr("transform", function (d) {
-        return "translate(" + d.source.x + "," + d.source.y + ")";
+        const diffX = Math.abs(d.source.x - d.target.x)/2;
+        const diffY = Math.abs(d.source.y - d.target.y)/2;
+        const newX = d.source.x < d.target.x ? d.source.x+diffX : d.target.x+diffX;
+        const newY = d.source.y < d.target.y ? d.source.y+diffY : d.target.y+diffY;
+
+        return "translate(" + newX + "," + newY + ")";
       });
     }
   }
