@@ -34,7 +34,7 @@ router.post("/hitungJumlah", async (req, res) => {
 
 router.post("/cariNama", async (req, res) => {
   const queryString =
-    "SELECT target, weight FROM interaction WHERE source LIKE ? AND book = '?' ORDER BY weight DESC LIMIT ?,?";
+    "SELECT source, target, weight FROM interaction WHERE source LIKE ? AND book = '?' ORDER BY weight DESC LIMIT ?,?";
     const name = "%"+req.body.name+"%";
   const book = req.body.book;
   const start = req.body.start*10;

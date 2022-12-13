@@ -6,19 +6,20 @@ const btnBook4 = document.querySelector("#book4");
 const btnBook5 = document.querySelector("#book5");
 
 const inputContainer = document.querySelector('#input-container');
-inputContainer.classList.add('hidden');
 const dataContainer = document.querySelector('.data-container');
 let bookChosen = 0;
-
+inputContainer.classList.add('hidden');
 const paginationContainer = document.querySelector('.pagination');
 
 const inputText = document.querySelector('#input-text');
 
+const btnCari = document.querySelector('#btn-cari');
 btnBook1.addEventListener("click", (e) => {
     dropdownContainer.textContent = "Book 1";
     bookChosen = 1;
     inputContainer.classList.remove('hidden');
     inputText.value = "";
+    clearData();
 });
 
 btnBook2.addEventListener("click", (e) => {
@@ -49,26 +50,26 @@ btnBook5.addEventListener("click", (e) => {
     clearData();
 });
 
-inputText.addEventListener("keyup", () => {
+btnCari.addEventListener("click", () => {
     getCount(bookChosen, inputText.value).then(res => {
-        let banyakPage = Math.ceil((res[0].jumlah)/ 10);
+        let banyakPage = Math.ceil((res[0].jumlah) / 10);
         paginationContainer.replaceChildren();
         makePagination(banyakPage);
         const tombol = document.querySelectorAll('.page-link');
         const tombolWrap = document.querySelectorAll('.page-item');
         tombolWrap[0].classList.add('active');
         let before = 0;
-        for(let i of tombol){
-            i.addEventListener('click',()=>{
+        for (let i of tombol) {
+            i.addEventListener('click', () => {
                 tombolWrap[before].classList.remove('active');
-                before = i.textContent-1;
-                tombolWrap[i.textContent-1].classList.add('active');
+                before = i.textContent - 1;
+                tombolWrap[i.textContent - 1].classList.add('active');
 
-                getData(bookChosen, inputText.value, i.textContent-1);
+                getData(bookChosen, inputText.value, i.textContent - 1);
             });
         }
     });
-    getData(bookChosen,inputText.value, 0);
+    getData(bookChosen, inputText.value, 0);
 });
 
 function getCount(bookNumber, namaCari) {
@@ -88,13 +89,13 @@ function getCount(bookNumber, namaCari) {
     return jumlah;
 }
 
-function clearData(){
-    inputText.value="";
+function clearData() {
+    inputText.value = "";
     paginationContainer.replaceChildren();
     dataContainer.replaceChildren();
 }
 
-function getData(bookNumber, namaCari, startIdx){
+function getData(bookNumber, namaCari, startIdx) {
     const obj = { book: bookNumber, name: namaCari, start: startIdx };
     const init = {
         method: 'post',
@@ -109,23 +110,42 @@ function getData(bookNumber, namaCari, startIdx){
         return response.json();
     }
 
-    function showResult(data){
+    function showResult(data) {
         showData(data);
     }
-    
+
 }
 
-function showData(data){
+function showData(data) {
     dataContainer.replaceChildren();
-    for(let i of data){
+    const container = document.createElement('div');
+    container.classList.add('oneDataContainer');
+    const source = document.createElement('span');
+    source.classList.add('source-container');
+    source.textContent = "source";
+    const target = document.createElement('span');
+    target.classList.add('target-container');
+    target.textContent = "target";
+    const weight = document.createElement('span');
+    weight.classList.add('weight-container');
+    weight.textContent = "weight";
+    container.appendChild(source);
+    container.appendChild(target);
+    container.appendChild(weight);
+    dataContainer.appendChild(container);
+    for (let i of data) {
         const container = document.createElement('div');
         container.classList.add('oneDataContainer');
+        const source = document.createElement('span');
+        source.classList.add('source-container');
+        source.textContent = i.source;
         const target = document.createElement('span');
         target.classList.add('target-container');
         target.textContent = i.target;
         const weight = document.createElement('span');
         weight.classList.add('weight-container');
         weight.textContent = i.weight;
+        container.appendChild(source);
         container.appendChild(target);
         container.appendChild(weight);
         dataContainer.appendChild(container);
@@ -138,8 +158,8 @@ function makePagination(jumlahPage) {
         li.classList.add("page-item");
         const btn = document.createElement('button');
         btn.classList.add('page-link');
-        btn.classList.add(`${i+1}`);
-        btn.innerText = `${i+1}`;
+        btn.classList.add(`${i + 1}`);
+        btn.innerText = `${i + 1}`;
         li.appendChild(btn);
         const page = document.querySelector('.pagination');
         page.appendChild(li);

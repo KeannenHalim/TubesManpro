@@ -12,7 +12,15 @@
 
 .group-container{
     display: flex;
+    flex-direction: row;
+}
 
+.btnCari-container{
+    margin: 20px;
+}
+
+#btn-cari{
+    width: 100px;
 }
 
 #pagination-container {
@@ -43,13 +51,17 @@
 
 .oneDataContainer{
     display: grid;
-    grid-template-areas: 'target weight';
-    grid-template-columns: 200px 50px;
+    grid-template-areas: 'source target weight';
+    grid-template-columns: 200px 200px 50px;
 }
 
 .target-container{
     grid-area: target;
 
+}
+
+.source-container{
+    grid-area: source;
 }
 
 .weight-container{
