@@ -63,7 +63,7 @@ function drawGraph(bookNumber) {
           return d.name;
         })
       )
-      .force("collide", d3.forceCollide(50))
+      .force("collide", d3.forceCollide(45))
       .force("charge", d3.forceManyBody().strength(160))
       .force("center", d3.forceCenter(width / 2, height / 2));
 
