@@ -40,24 +40,32 @@
   }
 
 .data-container{
-    margin-top: 20px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     font-size: large;
     font-family: 'cinzel';
+    row-gap: 5px;
+}
+
+.data-wrapper{
+    height: 450px;
+    overflow-y: scroll;
 }
 
 .oneDataContainer{
     display: grid;
     grid-template-areas: 'source target weight';
-    grid-template-columns: 200px 200px 50px;
+    grid-template-columns: 220px 220px 100px;
+    border-color: #9F8170;
+    border-style: solid;
+    border-radius: 20px;
+    padding: 10px;
 }
 
 .target-container{
     grid-area: target;
-
 }
 
 .source-container{

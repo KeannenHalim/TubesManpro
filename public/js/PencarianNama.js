@@ -51,25 +51,27 @@ btnBook5.addEventListener("click", (e) => {
 });
 
 btnCari.addEventListener("click", () => {
-    getCount(bookChosen, inputText.value).then(res => {
-        let banyakPage = Math.ceil((res[0].jumlah) / 10);
-        paginationContainer.replaceChildren();
-        makePagination(banyakPage);
-        const tombol = document.querySelectorAll('.page-link');
-        const tombolWrap = document.querySelectorAll('.page-item');
-        tombolWrap[0].classList.add('active');
-        let before = 0;
-        for (let i of tombol) {
-            i.addEventListener('click', () => {
-                tombolWrap[before].classList.remove('active');
-                before = i.textContent - 1;
-                tombolWrap[i.textContent - 1].classList.add('active');
+    if(inputText.value != ""){
+        getCount(bookChosen, inputText.value).then(res => {
+            let banyakPage = Math.ceil((res[0].jumlah) / 10);
+            paginationContainer.replaceChildren();
+            makePagination(banyakPage);
+            const tombol = document.querySelectorAll('.page-link');
+            const tombolWrap = document.querySelectorAll('.page-item');
+            tombolWrap[0].classList.add('active');
+            let before = 0;
+            for (let i of tombol) {
+                i.addEventListener('click', () => {
+                    tombolWrap[before].classList.remove('active');
+                    before = i.textContent - 1;
+                    tombolWrap[i.textContent - 1].classList.add('active');
 
-                getData(bookChosen, inputText.value, i.textContent - 1);
-            });
-        }
-    });
-    getData(bookChosen, inputText.value, 0);
+                    getData(bookChosen, inputText.value, i.textContent - 1);
+                });
+            }
+        });
+        getData(bookChosen, inputText.value, 0);
+    }
 });
 
 function getCount(bookNumber, namaCari) {

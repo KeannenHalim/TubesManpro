@@ -99,7 +99,7 @@ function drawGraph(bookNumber) {
       .text(function (d) {
         return d.name;
       })
-      .attr("x", -6)
+      .attr("x", -40)
       .attr("y", -25);
 
     var linklable = svg
@@ -116,8 +116,8 @@ function drawGraph(bookNumber) {
       .text(function (d) {
         return d.weight;
       })
-      .attr("x", 0)
-      .attr("y", 0);
+      .attr("x", -3)
+      .attr("y", -10);
 
     simulation.nodes(graph.nodes).on("tick", update);
     simulation.force("link").links(graph.links);
